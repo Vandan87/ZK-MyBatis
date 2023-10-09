@@ -1,0 +1,51 @@
+<window border="none" apply="com.controller.CustomerController">
+	<style src="/style.css" /> 
+	<groupbox id="groupBoxCustomer" width="550px" style="margin: 0 auto; text-align: center;">
+		<caption id="formCaption" sclass="caption" label="Customer Registration" />
+			<grid>
+				<columns>
+					<column width="200px" />
+					<column />
+				</columns>
+				<rows>
+					<row visible="false">
+						<label/>
+						<intbox id="customerId" value="0"/>
+					</row>
+					<row>
+						<label value="First name" sclass="formLabel" />
+						<textbox id="firstName" mold="rounded" width="200px" maxlength="12" instant="true" />
+					</row>
+					<row>
+						<label value="Last name" sclass="formLabel" />
+						<textbox id="lastName" mold="rounded" width="200px" maxlength="12" instant="true" />
+					</row>
+					<row>
+						<label value="Birthdate" sclass="formLabel" />
+						<datebox id="birthDate" mold="rounded" width="200px" format="dd-MM-yyyy" constraint="no future" instant="true" />
+					</row>
+					<row>
+						<label value="Mobile number" sclass="formLabel" />
+						<textbox id="mobileNumber" mold="rounded" width="200px" maxlength="10" instant="true" />
+					</row>
+					<row>
+						<label value="Age" sclass="formLabel" />
+						<textbox id="age" mold="rounded" width="200px" readonly="true" />
+					</row>
+					<row>
+						<label value="Address" sclass="formLabel" />
+						<textbox id="address" mold="rounded" width="200px" maxlength="30" instant="true" />
+					</row>
+					<row>
+						<label value="Email address" sclass="formLabel" />
+						<textbox id="email" mold="rounded" width="200px" instant="true" />
+					</row>
+				</rows>
+			</grid>	
+		<hlayout>
+			 <button sclass="btn-save" id="saveCustomer" label="Save" />
+			 <button sclass="btn-reset" id="resetForm" label="Reset" />
+			 <button sclass="btn-view" id="viewList" label="Back" />
+		</hlayout>
+	</groupbox>
+</window>

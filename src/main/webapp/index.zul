@@ -1,0 +1,7 @@
+<zk>
+	<borderlayout hflex="1" vflex="1">
+		<center id="mainContent" autoscroll="true" border="none">
+			<include src="/crud_page/customerData.zul"/>
+		</center>
+	</borderlayout>
+</zk>

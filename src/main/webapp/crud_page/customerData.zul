@@ -1,0 +1,33 @@
+<window border="none" id="windowCustomerData"  apply="com.controller.CustomerDataController">
+	<style src="/style.css" />
+			<groupbox id="groupboxCustomerData">
+			<caption sclass="caption" label="Customer Data" style="text-align: center; margin: 9px;" />
+			<button sclass="btn-back" id="backForm" label="Add new record" />
+			<grid id="tableGrid" emptyMessage="No customer found">
+				<columns>
+					<column label="Name" sort="auto(firstName)" />
+					<column label="Birth Date" />
+					<column label="Mobile Number" />
+					<column label="Age" />
+					<column label="Address" />
+					<column label="Email" />
+					<column label="Action" align="center" />
+				</columns>
+				<template name="model">
+					<row>
+						<label value="${each.firstName} ${each.lastName}" sclass="formLabel" />
+						<label value="${each.formattedDateOfBirth}" sclass="formLabel" />
+						<label value="${each.mobileNumber}" sclass="formLabel" />
+						<label value="${each.age}" sclass="formLabel" />
+						<label value="${each.address}" sclass="formLabel" />
+						<label value="${each.email}" sclass="formLabel" />
+						<hbox>
+							<button label="Edit" sclass="btn-edit" forward="onUpdate(${each})" />
+							<button label="Delete" sclass="btn-delete" forward="onDelete(${each})" />
+						</hbox>
+					</row>
+				</template>
+			</grid>
+			<paging id="paging" />
+		</groupbox>	
+</window>
