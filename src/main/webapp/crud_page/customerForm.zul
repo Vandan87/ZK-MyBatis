@@ -2,7 +2,7 @@
 	<style src="/style.css" /> 
 	<groupbox id="groupBoxCustomer" width="550px" style="margin: 0 auto; text-align: center;">
 		<caption id="formCaption" sclass="caption" label="Customer Registration" />
-			<grid>
+			<grid id="tableGrid">
 				<columns>
 					<column width="200px" />
 					<column />
@@ -45,7 +45,7 @@
 		<hlayout>
 			 <button sclass="btn-save" id="saveCustomer" label="Save" />
 			 <button sclass="btn-reset" id="resetForm" label="Reset" />
-			 <button sclass="btn-view" id="viewList" label="Back" />
+			 <button sclass="btn-view" id="back" label="Back" />
 		</hlayout>
 	</groupbox>
 </window>

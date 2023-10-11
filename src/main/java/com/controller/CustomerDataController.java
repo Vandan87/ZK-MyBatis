@@ -73,7 +73,7 @@ public class CustomerDataController extends SelectorComposer<Component> {
 		}
 	}
 
-	@Listen("onClick = #backForm")
+	@Listen("onClick = #newData")
 	public void redirectToCustomerForm() {
 		Session sess = Sessions.getCurrent();
 		Customer existingCustomer = (Customer) sess.getAttribute("customer");

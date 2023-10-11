@@ -2,7 +2,7 @@
 	<style src="/style.css" />
 			<groupbox id="groupboxCustomerData">
 			<caption sclass="caption" label="Customer Data" style="text-align: center; margin: 9px;" />
-			<button sclass="btn-back" id="backForm" label="Add new record" />
+			<button sclass="btn-back" id="newData" label="Add new record" />
 			<grid id="tableGrid" emptyMessage="No customer found">
 				<columns>
 					<column label="Name" sort="auto(firstName)" />

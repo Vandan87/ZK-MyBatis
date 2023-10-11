@@ -66,6 +66,7 @@ public class CustomerController extends SelectorComposer<Component> {
 
 	Customer customer;
 
+	String originalMobileNumber, originalEmail;
 	CustomerService customerService = new CustomerServiceimpl();
 	Customer originalCustomer;
 	ListModelList<Customer> customerList = new ListModelList<>();
@@ -87,6 +88,8 @@ public class CustomerController extends SelectorComposer<Component> {
 			email.setValue(customer.getEmail());
 			formCaption.setLabel("Customer edit form");
 			saveCustomer.setLabel("Update");
+			originalMobileNumber = customer.getMobileNumber();
+			originalEmail = customer.getEmail();
 
 			originalCustomer = new Customer();
 			originalCustomer.setId(customer.getId());
@@ -118,6 +121,14 @@ public class CustomerController extends SelectorComposer<Component> {
 		Customer customer = new Customer();
 		try {
 			if (validate()) {
+				if (!mobileNumber.getValue().equals(originalMobileNumber) && isDuplicateField("mobileNumber", mobileNumber.getValue())) {
+					showNotification("Mobile number", mobileNumber);
+					return;
+				}
+				if (!email.getValue().equals(originalEmail) && isDuplicateField("email", email.getValue())) {
+					showNotification("Email", email);
+					return;
+				}
 				customer.setId(customerId.getValue());
 				customer.setFirstName(firstName.getValue());
 				customer.setLastName(lastName.getValue());
@@ -141,6 +152,23 @@ public class CustomerController extends SelectorComposer<Component> {
 		} catch (Exception exception) {
 			System.err.println("Message : " + exception.getMessage());
 		}
+	}
+
+	private boolean isDuplicateField(String field, String value) {
+		List<Customer> customers = customerService.listAllCustomer();
+		for (Customer existingCustomer : customers) {
+			if ("mobileNumber".equals(field) && existingCustomer.getMobileNumber().equals(value)) {
+				return true;
+			}
+			if ("email".equals(field) && existingCustomer.getEmail().equals(value)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void showNotification(String message, Component component) {
+		Clients.showNotification(message + " already exists", "error", component, "after_end", 1000, true);
 	}
 
 	@Listen("onChange = #birthDate")
@@ -173,7 +201,7 @@ public class CustomerController extends SelectorComposer<Component> {
 		email.setValue("");
 	}
 
-	@Listen("onClick = #viewList")
+	@Listen("onClick = #back")
 	public void redirectToCustomerDataPage() {
 		String targetPageUrl = "/crud_page/customerData.zul";
 		Executions.sendRedirect(targetPageUrl);
@@ -202,7 +230,7 @@ public class CustomerController extends SelectorComposer<Component> {
 				return true;
 			}
 		} catch (Exception e) {
-			Clients.showNotification(e.getMessage(), "warning", tableGrid, "top_center", 1000, true);
+			showNotification(e.getMessage(), tableGrid);
 		}
 		return false;
 	}
@@ -213,8 +241,8 @@ public class CustomerController extends SelectorComposer<Component> {
 		boolean allFieldsFilled = !firstName.getValue().isBlank() && !lastName.getValue().isBlank()
 				&& birthDate.getValue() != null && !mobileNumber.getValue().isBlank() && !address.getValue().isBlank()
 				&& !email.getValue().isBlank();
-
-		// Check if there are changes in the form fields compared to the original customer data
+		// Check if there are changes in the form fields compared to the original
+		// customer data
 		if (originalCustomer != null) {
 			boolean fieldsChanged = !firstName.getValue().equals(originalCustomer.getFirstName())
 					|| !lastName.getValue().equals(originalCustomer.getLastName())
@@ -222,7 +250,6 @@ public class CustomerController extends SelectorComposer<Component> {
 					|| !mobileNumber.getValue().equals(originalCustomer.getMobileNumber())
 					|| !address.getValue().equals(originalCustomer.getAddress())
 					|| !email.getValue().equals(originalCustomer.getEmail());
-
 			saveCustomer.setVisible(fieldsChanged && allFieldsFilled);
 		} else {
 			saveCustomer.setVisible(allFieldsFilled);
